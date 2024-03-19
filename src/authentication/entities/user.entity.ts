@@ -15,10 +15,10 @@ export class User extends Document {
     @Prop({required: true, unique: true, type: String})
     emailAddress: string
 
-    @Prop({type: Boolean})
+    @Prop({type: Boolean, default: true})
     isActive: boolean
 
-    @Prop({type: Boolean})
+    @Prop({type: Boolean, default: false})
     isDeleted: boolean
 }
 

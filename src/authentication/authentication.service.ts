@@ -1,4 +1,4 @@
-import { ConflictException, HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import { ConflictException, HttpException, HttpStatus, Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { User } from './entities/user.entity';
 import { Model } from 'mongoose';
@@ -35,9 +35,11 @@ export class AuthenticationService {
   async create(createUserDto: CreateUserDto) {
     const isUserAlreadyExists = await this.findUserByEmailAddress(createUserDto.emailAddress);
     if (isUserAlreadyExists) {
-        throw new ConflictException('This user already exists.');
+        throw new HttpException('This user already exists.', HttpStatus.BAD_REQUEST);
     }
+    console.log("<<>>");
+    //const updatedUser = {...createUserDto, isActive: true, isDeleted: false}
     const user = new this.userModel(createUserDto);
-    return user.save();
+    return await user.save();
   }
 }
