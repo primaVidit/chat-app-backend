@@ -10,9 +10,11 @@ import { PassportModule } from '@nestjs/passport';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MongooseModule.forRoot('mongodb+srv://viditkhandelwal:vidit1234@cluster0.6niw3km.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'),
+    PassportModule.register({ session: true }),
     AuthenticationModule
   ],
   controllers: [AppController],
   providers: [AppService],
+  exports: [PassportModule]
 })
 export class AppModule {}

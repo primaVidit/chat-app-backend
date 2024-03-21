@@ -11,7 +11,10 @@ async function bootstrap() {
   app.use(session({
     secret: "chatappbackend",
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    cookie: {
+      maxAge: 12000
+    }
   }));
   app.useGlobalPipes(
     new ValidationPipe({ whitelist: true, forbidNonWhitelisted: true }),
