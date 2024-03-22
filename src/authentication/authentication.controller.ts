@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Post,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { AuthenticationService } from './authentication.service';
 import { hashedPassword } from './helpers/passwordEncryption.helper';
@@ -47,6 +40,12 @@ export class AuthenticationController {
   @UseGuards(AuthenticatedGuard)
   @Get('pin')
   async checkConnection(@Req() req: any) {
-    return {userId: req.user._id};
+    return { userId: req.user._id };
+  }
+
+  @Get('logout')
+  async logout(@Req() req: any) {
+    req.session.destroy();
+    return 'User logged out successfully';
   }
 }
